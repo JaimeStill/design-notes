@@ -1,0 +1,80 @@
+:root {
+    color-scheme: dark light;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: hsla(0, 0%, 0%, 1);
+        --color: hsla(267, 100%, 86%, 1);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: hsla(0, 0%, 100%, 1);
+        --color: hsla(261, 69%, 59%, 1);
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--color);
+    min-height: 100svh;
+    min-width: 100%;
+    font-family: system-ui;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-weight: 300;
+    letter-spacing: 0.33rem;
+    text-transform: uppercase;
+    font-size: clamp(1.5rem, calc(1rem + var(--scalar)), 8rem);
+}
+
+@media (min-width: 481px) {
+    h1 {
+        --scalar: 4vw;
+    }
+}
+
+@keyframes breath {
+    from {
+        animation-timing-function: ease-out;
+    }
+
+    to {
+        transform: scale(1.25) translateY(-5px) perspective(1px);
+        text-shadow: 0 0 40px var(--glow-color);
+        animation-timing-function: ease-in-out;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    [letter-animation]>span {
+        display: inline-block;
+        white-space: break-spaces;
+    }
+
+    [letter-animation] {
+        --glow-color: white;
+    }
+
+    [letter-animation]>span {
+        animation: breath 1.2s ease calc(var(--index) * 100 * 1ms) infinite alternate;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) and (prefers-color-scheme: light) {
+    [letter-animation] {
+        --glow-color: black;
+    }
+}
